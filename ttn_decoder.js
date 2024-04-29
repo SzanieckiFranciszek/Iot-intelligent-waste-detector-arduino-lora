@@ -3,8 +3,18 @@ function Decoder(bytes, port) {
 
   var msg = String.fromCharCode.apply(null, bytes);
 	var i = 1; 
+	var deviceId = '';
 	var dumpsterFilingPercentage = '';
 	var batteryStatus = '';
+
+	while(i < msg.length && msg[i] != "P")
+	{
+		deviceId += msg[i];
+	  i++;
+	}
+  decoded.deviceId = deviceId;
+
+  i++;
 	
 	while(i < msg.length && msg[i] != "B")
 	{
