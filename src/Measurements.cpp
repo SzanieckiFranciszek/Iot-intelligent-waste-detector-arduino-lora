@@ -40,7 +40,7 @@ String Measurements::getBatteryStatus()
 }
 
 
-float Measurements::getDumpsterFilingPercentage()
+int Measurements::getDumpsterFilingPercentage()
 {
   ultrasonicDistance = getUltrasonicDistance();
   Serial.print("Height of the dustbin in centimeters: ");
@@ -48,7 +48,7 @@ float Measurements::getDumpsterFilingPercentage()
   Serial.print("Filling of the dustbin in percentage: ");
   heightDustbin = DustbinConfig::heightDustbinInCentimeters;
 
-  float fillingPercentage =  (1 - ((float)ultrasonicDistance / heightDustbin)) * 100;
+  int fillingPercentage =  (1 - ((float)ultrasonicDistance / heightDustbin)) * 100;
   Serial.println(fillingPercentage);
   
   return fillingPercentage;

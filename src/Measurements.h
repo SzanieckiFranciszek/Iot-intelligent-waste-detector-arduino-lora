@@ -17,7 +17,7 @@ class Measurements
 
   private:
   int getUltrasonicDistance();
-  float getDumpsterFilingPercentage();
+  int getDumpsterFilingPercentage();
   void batteryMeasurmentInit();
   String getBatteryStatus();
   // String getValueFromJsonConfigFile(String key, String filePath);

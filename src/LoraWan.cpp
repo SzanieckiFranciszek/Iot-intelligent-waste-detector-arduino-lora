@@ -1,5 +1,6 @@
 
 #include "LoRaWAN.h"
+#include "DustbinConfig.h"
 
 /**
  * @brief  setup and connect LoRa modem
@@ -81,7 +82,8 @@ void LoRaWAN::sendMsg(const String msg)
 String LoRaWAN::convertMeasurementsToString(const Results& results)
 {
   String msg;
-  msg += "P" + String(results.dumpsterFilingPercentage) +" %";
+  msg += "D" + String(DustbinConfig::deviceId);
+  msg += "P" + String(results.dumpsterFilingPercentage) +"%";
   msg += "B" + String(results.batteryStatus);
 
   return msg;

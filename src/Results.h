@@ -5,6 +5,6 @@
 
 struct Results
 {
-  float dumpsterFilingPercentage;
+  int dumpsterFilingPercentage;
   String batteryStatus;
 };
