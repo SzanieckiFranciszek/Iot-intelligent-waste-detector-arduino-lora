@@ -6,6 +6,7 @@
 #include "UltrasonicSensor.h"
 #include <Arduino.h>
 #include <DustbinConfig.h>
+#include <algorithm>
 
 Measurements::Measurements(): 
 ultrasonicSensor(UltrasonicSensor(Pins::ultrasonicTriggerPin, Pins::ultrasonicEchoPin))
@@ -42,16 +43,17 @@ String Measurements::getBatteryStatus()
 
 int Measurements::getDumpsterFilingPercentage()
 {
-  ultrasonicDistance = getUltrasonicDistance();
-  Serial.print("Height of the dustbin in centimeters: ");
-  Serial.println(ultrasonicDistance);
-  Serial.print("Filling of the dustbin in percentage: ");
-  heightDustbin = DustbinConfig::heightDustbinInCentimeters;
+    ultrasonicDistance = getUltrasonicDistance();
+    Serial.print("Height of the dustbin in centimeters: ");
+    Serial.println(ultrasonicDistance);
+    Serial.print("Filling of the dustbin in percentage: ");
+    heightDustbin = DustbinConfig::heightDustbinInCentimeters;
 
-  int fillingPercentage =  (1 - ((float)ultrasonicDistance / heightDustbin)) * 100;
-  Serial.println(fillingPercentage);
-  
-  return fillingPercentage;
+    int fillingPercentage =  (1 - ((float)ultrasonicDistance / heightDustbin)) * 100;
+    fillingPercentage = std::max(0, std::min(fillingPercentage, 100)); // ogranicz wartość do zakresu 0-100
+    Serial.println(fillingPercentage);
+    
+    return fillingPercentage;
 }
 
 
