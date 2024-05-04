@@ -23,9 +23,6 @@ void setup()
 void loop()
 {
   measurements.measure(results);
-  Serial.println("Results data:");
-  Serial.println(results.dumpsterFilingPercentage);
-  Serial.println(results.batteryStatus);
   loraWan.sendMsgMeasurements(results);
   Serial.println("Deep sleep started");
   delay(120000);
