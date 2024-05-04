@@ -1,22 +1,22 @@
 
 #include "Measurements.h"
-
 #include "LoraConfig.h"
 #include "PinConfig.h"
 #include "UltrasonicSensor.h"
-#include <Arduino.h>
-#include <DustbinConfig.h>
-#include <algorithm>
+#include "Arduino.h"
+#include "DustbinConfig.h"
+#include "algorithm"
+#include "Battery.h"
 
 Measurements::Measurements(): 
-ultrasonicSensor(UltrasonicSensor(Pins::ultrasonicTriggerPin, Pins::ultrasonicEchoPin))
+ultrasonicSensor(UltrasonicSensor(Pins::ultrasonicTriggerPin, Pins::ultrasonicEchoPin)),
+battery(Battery(Pins::batteryVoltagePin))
 {}
 
 void Measurements::init_sensors()
 {
   ultrasonicSensor.initSensor();
-  // batteryMeasurmentInit();
-  
+  battery.initMeasure();
 }
 
 void Measurements::measure(Results& results)
@@ -25,10 +25,6 @@ void Measurements::measure(Results& results)
   results.batteryStatus = getBatteryStatus();
 }
 
-// {
-//   // pinMode(Pins::batteryVoltagePin, INPUT);
-// }
-
 int Measurements::getUltrasonicDistance()
 {
   return ultrasonicSensor.measureDistance();
@@ -36,8 +32,7 @@ int Measurements::getUltrasonicDistance()
 
 String Measurements::getBatteryStatus()
 {
-  // if else here
-  return "OK";
+  return String(battery.calculateBatteryStatusInPercentage());
 }
 
 
@@ -45,13 +40,13 @@ int Measurements::getDumpsterFilingPercentage()
 {
     ultrasonicDistance = getUltrasonicDistance();
     Serial.print("Height of the dustbin in centimeters: ");
-    Serial.println(ultrasonicDistance);
+    Serial.print(ultrasonicDistance);
     Serial.print("Filling of the dustbin in percentage: ");
     heightDustbin = DustbinConfig::heightDustbinInCentimeters;
 
     int fillingPercentage =  (1 - ((float)ultrasonicDistance / heightDustbin)) * 100;
-    fillingPercentage = std::max(0, std::min(fillingPercentage, 100)); // ogranicz wartość do zakresu 0-100
-    Serial.println(fillingPercentage);
+    fillingPercentage = std::max(0, std::min(fillingPercentage, 100));
+    Serial.print(fillingPercentage);
     
     return fillingPercentage;
 }

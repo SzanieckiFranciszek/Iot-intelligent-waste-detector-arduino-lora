@@ -4,6 +4,7 @@
 #include "PinConfig.h"
 #include "Results.h"
 #include "UltrasonicSensor.h"
+#include "Battery.h"
 
 
 
@@ -14,13 +15,12 @@ class Measurements
   void init_sensors();
   void measure(Results& results);
   UltrasonicSensor ultrasonicSensor;
+  Battery battery;  
 
   private:
   int getUltrasonicDistance();
   int getDumpsterFilingPercentage();
-  void batteryMeasurmentInit();
   String getBatteryStatus();
-  // String getValueFromJsonConfigFile(String key, String filePath);
   int ultrasonicDistance;
   int heightDustbin;
 };
