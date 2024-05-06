@@ -16,17 +16,17 @@ void setup()
   Serial.begin(9600);
   // delay(60000); // TODO: test without this
 
-  loraWan.setup();
+  // loraWan.setup();
   measurements.init_sensors();
 }
 
 void loop()
 {
   measurements.measure(results);
-  loraWan.sendMsgMeasurements(results);
+  // loraWan.sendMsgMeasurements(results);
   Serial.println("Deep sleep started");
-  delay(120000);
-  // LowPower.deepSleep(120000);
+  // delay(120000);
+  LowPower.deepSleep(60000);
   //set up deepslep.
   Serial.println("Deep sleep ended");
 }
