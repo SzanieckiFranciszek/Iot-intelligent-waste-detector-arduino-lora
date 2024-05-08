@@ -9,11 +9,11 @@
 #include "Battery.h"
 
 Measurements::Measurements(): 
-ultrasonicSensor(UltrasonicSensor(Pins::ultrasonicTriggerPin, Pins::ultrasonicEchoPin)),
+ultrasonicSensor(UltrasonicSensor(Pins::ultrasonicSensorSignalPin)),
 battery(Battery(Pins::batteryVoltagePin))
 {}
 
-void Measurements::init_sensors()
+void Measurements::initSensors()
 {
   ultrasonicSensor.initSensor();
   battery.initMeasure();
@@ -23,6 +23,7 @@ void Measurements::measure(Results& results)
 {
   results.dumpsterFilingPercentage = getDumpsterFilingPercentage();
   results.batteryStatus = getBatteryStatus();
+
 }
 
 int Measurements::getUltrasonicDistance()
@@ -40,13 +41,15 @@ int Measurements::getDumpsterFilingPercentage()
 {
     ultrasonicDistance = getUltrasonicDistance();
     Serial.print("Height of the dustbin in centimeters: ");
-    Serial.print(ultrasonicDistance);
+    Serial.println(ultrasonicDistance);
+    Serial.println(" cm");
     Serial.print("Filling of the dustbin in percentage: ");
     heightDustbin = DustbinConfig::heightDustbinInCentimeters;
 
     int fillingPercentage =  (1 - ((float)ultrasonicDistance / heightDustbin)) * 100;
     fillingPercentage = std::max(0, std::min(fillingPercentage, 100));
-    Serial.print(fillingPercentage);
+    Serial.println(fillingPercentage);
+    Serial.println(" %");
     
     return fillingPercentage;
 }

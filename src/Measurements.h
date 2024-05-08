@@ -12,7 +12,7 @@ class Measurements
 {
   public:
   Measurements();
-  void init_sensors();
+  void initSensors();
   void measure(Results& results);
   UltrasonicSensor ultrasonicSensor;
   Battery battery;  
