@@ -85,6 +85,5 @@ String LoRaWAN::convertMeasurementsToString(const Results& results)
   msg += "D" + String(DustbinConfig::deviceId);
   msg += "P" + String(results.dumpsterFilingPercentage) +"%";
   msg += "B" + String(results.batteryStatus) +"%";
-
   return msg;
 }

@@ -36,15 +36,15 @@ public:
 
     printBatteryVoltage(batteryVoltage);
 
-    if (mesuredVoltage >= 4.15) { // Max battery voltage = 4.2 V
+    if (batteryVoltage >= 4.15) { // Max battery voltage = 4.2 V
         batteryPercentage = 100; // 100% Battery Status
-    } else if (mesuredVoltage >= 4.00 || mesuredVoltage < 4.15) {
+    } else if (batteryVoltage >= 4.00 && batteryVoltage < 4.10) {
         batteryPercentage = 75; // 75% Battery Status
-    } else if (mesuredVoltage >= 3.80 || mesuredVoltage < 4.00) {
+    } else if (batteryVoltage >= 3.80 && batteryVoltage < 4.00) {
         batteryPercentage = 50; // 50% Battery Status
-    } else if (mesuredVoltage >= 3.70 || mesuredVoltage < 3.80) {
+    } else if (batteryVoltage >= 3.70 && batteryVoltage < 3.80) {
         batteryPercentage = 25; // 25% Battery Status
-    } else if (mesuredVoltage >= 3.60 || mesuredVoltage < 3.70) {
+    } else if (batteryVoltage >= 3.60 && batteryVoltage < 3.70) {
         batteryPercentage = 5; // 5% Battery Status
     }
     Serial.print("Battery status: ");
