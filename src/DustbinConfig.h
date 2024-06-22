@@ -5,5 +5,5 @@
 namespace DustbinConfig
 {
 const int deviceId = 1526;
-const uint8_t heightDustbinInCentimeters = 21;
+const uint8_t heightDustbinInCentimeters = 27.5;
 } 

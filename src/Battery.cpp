@@ -33,7 +33,7 @@ int Battery::calculateBatteryStatusInPercentage() {
 
     if (batteryVoltage >= 4.15) { // Max battery voltage = 4.2 V
         batteryPercentage = 100; // 100% Battery Status
-    } else if (batteryVoltage >= 4.00 && batteryVoltage < 4.10) {
+    } else if (batteryVoltage >= 4.00 && batteryVoltage < 4.15) {
         batteryPercentage = 75; // 75% Battery Status
     } else if (batteryVoltage >= 3.80 && batteryVoltage < 4.00) {
         batteryPercentage = 50; // 50% Battery Status

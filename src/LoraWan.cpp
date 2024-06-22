@@ -2,9 +2,7 @@
 #include "LoRaWAN.h"
 #include "DustbinConfig.h"
 
-/**
- * @brief  setup and connect LoRa modem
- */
+
 void LoRaWAN::setup()
 {
   Serial.println("LoRaWAN setup");
@@ -17,7 +15,7 @@ void LoRaWAN::setup()
   int connected = 0;
   if (Config::auth == Authorization::OTAA)
   {
-    connected = loraModem.joinOTAA(Config::APPEUI, Config::APPKEY, Config::DEVEUI);
+  connected = loraModem.joinOTAA(Config::APPEUI, Config::APPKEY, Config::DEVEUI);
   }
   else
   {
@@ -37,29 +35,23 @@ void LoRaWAN::setup()
   delay(modemDealy);
 }
 
-/**
- * @brief  Send measurements via LoRaWAN
- * @param  result: measurements to send
- */
+
 void LoRaWAN::sendMsgMeasurements(const Results& result)
 {
   String msg = convertMeasurementsToString(result);
   sendMsg(msg);
 }
 
-/**
- * @brief  Send message via LoRaWAN
- * @param  msg: message to send
- */
+
 void LoRaWAN::sendMsg(const String msg)
 {
-  for (unsigned int i = 0; i < msg.length(); i++)
+for (unsigned int i = 0; i < msg.length(); i++)
   {
     Serial.print(msg[i] >> 4, HEX);
     Serial.print(msg[i] & 0xF, HEX);
   }
   Serial.println();
-
+  
   if (Config::constDataRate)
   {
     loraModem.dataRate(0);
@@ -74,11 +66,6 @@ void LoRaWAN::sendMsg(const String msg)
   loraModem.sleep();
 }
 
-/**
- * @brief  Convert measurements to string, ready to send
- * @param  results: measurements to convert
- * @return assembled output string
- */
 String LoRaWAN::convertMeasurementsToString(const Results& results)
 {
   String msg;

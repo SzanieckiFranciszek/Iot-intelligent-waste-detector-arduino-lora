@@ -15,9 +15,7 @@ public:
         Serial.println("Ultrasonic Sensor init");
     }
 
-    // Method to measure distance
     float measureDistance() {
-        // Send a short pulse on the trigger pin
         Serial.println("Measuring in Progress");
 
         float distance = ultrasonic.MeasureInCentimeters();
